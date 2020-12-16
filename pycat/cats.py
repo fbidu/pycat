@@ -31,3 +31,15 @@ class Cat:
         for filename in filenames:
             with open(filename) as f:
                 print(f.read(), end="")
+
+    @staticmethod
+    def sys_write(*filenames):
+        """
+        Simple cat implementation using `sys.stdout` and `write`.
+        Prints to stdout the contents of `filename`
+        """
+        from sys import stdout
+
+        for filename in filenames:
+            with open(filename) as f:
+                stdout.write(f.read())
