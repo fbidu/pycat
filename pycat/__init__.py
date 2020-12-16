@@ -1,2 +1,4 @@
 # pylint: disable=missing-module-docstring
-from .cats import simple as cat
+from .cats import Cat
+
+cat = Cat()
