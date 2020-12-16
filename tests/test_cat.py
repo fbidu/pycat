@@ -12,3 +12,10 @@ def test_cat_strategy(capsys):
     cat("tests/hello.txt")
     captured = capsys.readouterr()
     assert captured.out == "hello"
+
+
+def test_cat_sys_write(capsys):
+    cat = Cat(strategy="sys_write")
+    cat("tests/hello.txt")
+    captured = capsys.readouterr()
+    assert captured.out == "hello"
