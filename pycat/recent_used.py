@@ -21,3 +21,9 @@ class RecentUsed:
 
     def __getitem__(self, index):
         return self.data[index]
+
+    def pop(self):
+        """
+        Returns the latest accessed item
+        """
+        return self.data.pop()
