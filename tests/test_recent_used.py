@@ -119,3 +119,12 @@ def test_history_bound_is_respected():
     bounded.append("file3")
 
     assert len(bounded) == 2
+
+
+def test_can_clean_history(recent_used_populated):
+    """
+    Test if we can clean the whole history
+    """
+    recent_used_populated.clear()
+
+    assert len(recent_used_populated) == 0
