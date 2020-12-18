@@ -106,3 +106,16 @@ def test_history_is_bounded():
     """
     bounded = RecentUsed(limit=2)
     assert isinstance(bounded, RecentUsed)
+
+
+def test_history_bound_is_respected():
+    """
+    After going over the limit, the oldest element
+    must be removed and the newest one be added
+    """
+    bounded = RecentUsed(limit=2)
+    bounded.append("file1")
+    bounded.append("file2")
+    bounded.append("file3")
+
+    assert len(bounded) == 2
