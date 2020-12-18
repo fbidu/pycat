@@ -27,4 +27,5 @@ def test_recent_used_accepts_filename():
     recent_used = RecentUsed()
     recent_used.append("file1")
 
+    # after adding, `len` should increase
     assert len(recent_used) == 1

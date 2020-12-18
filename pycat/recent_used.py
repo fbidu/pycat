@@ -11,7 +11,7 @@ class RecentUsed:
         self.data = data
 
     def __len__(self):
-        return 0
+        return len(self.data)
 
     def append(self, item):
         """
