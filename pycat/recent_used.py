@@ -24,3 +24,6 @@ class RecentUsed(UserList):
             self.set.add(item)
 
         super().append(item)
+
+    def pop(self, i=-1):
+        return self[i]
