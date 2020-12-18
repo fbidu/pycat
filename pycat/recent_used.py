@@ -1,4 +1,4 @@
-# pylint:disable=missing-module-docstring
+# pylint:disable=missing-module-docstring, too-many-ancestors
 
 from collections import UserList
 

@@ -38,16 +38,6 @@ def test_recent_used_accepts_filename(recent_used):
     assert len(recent_used) == 1
 
 
-def test_recent_used_accepts_filename(recent_used):
-    """
-    Can we register a new 'opened' filename?
-    """
-    recent_used.append("file1")
-
-    # after adding, `len` should increase
-    assert len(recent_used) == 1
-
-
 def test_file_index(recent_used):
     """
     Can we access files in the history by
