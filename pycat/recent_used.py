@@ -8,12 +8,13 @@ class RecentUsed(UserList):
     RecentUsed remembers last recently opened files
     """
 
-    def __init__(self, data=None):
+    def __init__(self, data=None, limit=None):
         if not data:
             data = []
 
         self.data = data
         self.set = set(data)
+        self.limit = limit
 
         super().__init__()
 
