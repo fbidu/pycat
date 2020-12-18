@@ -1,3 +1,4 @@
+# pylint:disable=missing-module-docstring
 class RecentUsed:
     """
     RecentUsed remembers last recently opened files

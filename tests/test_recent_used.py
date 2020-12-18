@@ -1,3 +1,6 @@
+"""
+Tests for the RecentUsed class
+"""
 from pycat.recent_used import RecentUsed
 
 
@@ -23,3 +26,5 @@ def test_recent_used_accepts_filename():
     """
     recent_used = RecentUsed()
     recent_used.append("file1")
+
+    assert len(recent_used) == 1
