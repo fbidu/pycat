@@ -13,9 +13,11 @@ class RecentUsed(UserList):
             data = []
 
         self.data = data
+        self.set = set(data)
 
         super().__init__()
 
     def append(self, item) -> None:
-        if not item in self:
+        if not item in self.set:
+            self.set.add(item)
             super().append(item)
