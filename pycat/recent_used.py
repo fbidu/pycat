@@ -18,3 +18,6 @@ class RecentUsed:
         Adds a new file to the history
         """
         self.data.append(item)
+
+    def __getitem__(self, index):
+        return self.data[index]
