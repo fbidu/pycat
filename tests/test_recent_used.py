@@ -9,9 +9,22 @@ from pycat.recent_used import RecentUsed
 @pytest.fixture
 def recent_used():
     """
-    Returns a new RecentUsed instance for each test
+    Returns a new empty RecentUsed instance for each test
     """
     return RecentUsed()
+
+
+@pytest.fixture
+def recent_used_populated():
+    """
+    Returns a new RecentUsed instance with items registered
+    """
+    recent_used = RecentUsed()
+    recent_used.append("file1")
+    recent_used.append("file2")
+    recent_used.append("file3")
+
+    return recent_used
 
 
 def test_recent_used_instantiation(recent_used):
@@ -38,26 +51,18 @@ def test_recent_used_accepts_filename(recent_used):
     assert len(recent_used) == 1
 
 
-def test_file_index(recent_used):
+def test_file_index(recent_used_populated):
     """
     Can we access files in the history by
     their index?
     """
-    recent_used.append("file1")
-    recent_used.append("file2")
-    recent_used.append("file3")
-
-    assert recent_used[0] == "file1"
-    assert recent_used[1] == "file2"
-    assert recent_used[2] == "file3"
+    assert recent_used_populated[0] == "file1"
+    assert recent_used_populated[1] == "file2"
+    assert recent_used_populated[2] == "file3"
 
 
-def test_pop_returns_latest_file(recent_used):
+def test_pop_returns_latest_file(recent_used_populated):
     """
     Can we `pop` the latest file?
     """
-    recent_used.append("file1")
-    recent_used.append("file2")
-    recent_used.append("file3")
-
-    assert recent_used.pop() == "file3"
+    assert recent_used_populated.pop() == "file3"
