@@ -66,3 +66,14 @@ def test_pop_returns_latest_file(recent_used_populated):
     Can we `pop` the latest file?
     """
     assert recent_used_populated.pop() == "file3"
+
+
+def test_duplicated_file_is_unique(recent_used_populated):
+    """
+    After opening a duplicated file, it should be
+    present in the list only once
+    """
+    duplicate = recent_used_populated[0]
+    recent_used_populated.append(duplicate)
+
+    assert recent_used_populated.count(duplicate) == 1
