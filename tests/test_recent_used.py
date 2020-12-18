@@ -98,3 +98,11 @@ def test_popped_items_are_kept(recent_used_populated):
     """
     top = recent_used_populated.pop()
     assert recent_used_populated.pop() == top
+
+
+def test_history_is_bounded():
+    """
+    Can we add a limit to the history's size?
+    """
+    bounded = RecentUsed(limit=2)
+    assert isinstance(bounded, RecentUsed)
