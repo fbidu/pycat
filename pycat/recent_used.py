@@ -1,5 +1,9 @@
 # pylint:disable=missing-module-docstring
-class RecentUsed:
+
+from collections import UserList
+
+
+class RecentUsed(UserList):
     """
     RecentUsed remembers last recently opened files
     """
@@ -10,20 +14,4 @@ class RecentUsed:
 
         self.data = data
 
-    def __len__(self):
-        return len(self.data)
-
-    def append(self, item):
-        """
-        Adds a new file to the history
-        """
-        self.data.append(item)
-
-    def __getitem__(self, index):
-        return self.data[index]
-
-    def pop(self):
-        """
-        Returns the latest accessed item
-        """
-        return self.data.pop()
+        super().__init__()
