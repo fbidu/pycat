@@ -82,9 +82,19 @@ def test_duplicated_file_is_unique(recent_used_populated):
 def test_duplicated_file_goes_to_top(recent_used_populated):
     """
     After opening a duplicated file, it should be
-    present in the list only once
+    put at the top of the list
     """
     duplicate = recent_used_populated[0]
     recent_used_populated.append(duplicate)
 
     assert recent_used_populated.pop() == duplicate
+
+
+def test_popped_items_are_kept(recent_used_populated):
+    """
+    After accessing the top of the list through the
+    `pop` method, the item should be kept on
+    the list
+    """
+    top = recent_used_populated.pop()
+    assert recent_used_populated.pop() == top
