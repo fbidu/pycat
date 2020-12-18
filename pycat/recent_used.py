@@ -19,6 +19,10 @@ class RecentUsed(UserList):
         super().__init__()
 
     def append(self, item) -> None:
+        if self.limit and len(self) == self.limit:
+            self.set.remove(self[0])
+            del self[0]
+
         if item in self.set:
             self.remove(item)
         else:
