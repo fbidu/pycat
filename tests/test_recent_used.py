@@ -60,3 +60,14 @@ def test_file_index(recent_used):
     assert recent_used[0] == "file1"
     assert recent_used[1] == "file2"
     assert recent_used[2] == "file3"
+
+
+def test_pop_returns_latest_file(recent_used):
+    """
+    Can we `pop` the latest file?
+    """
+    recent_used.append("file1")
+    recent_used.append("file2")
+    recent_used.append("file3")
+
+    assert recent_used.pop() == "file3"
