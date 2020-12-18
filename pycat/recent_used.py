@@ -18,4 +18,4 @@ class RecentUsed(UserList):
 
     def append(self, item) -> None:
         if not item in self:
-            return super().append(item)
+            super().append(item)
