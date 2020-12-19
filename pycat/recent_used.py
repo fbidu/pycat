@@ -5,7 +5,7 @@ from collections import UserList
 
 class RecentUsed(UserList):
     """
-    RecentUsed remembers last recently opened files
+    RecentUsed remembers most recently opened files.
     """
 
     def __init__(self, data=None, limit=None):
@@ -18,7 +18,13 @@ class RecentUsed(UserList):
 
         super().__init__()
 
-    def append(self, item) -> None:
+    def append(self, item):
+        """
+        Adds a new item to the history.
+
+        If the history's len is equal to `limit`,
+        it removes the oldest item and inserts the new one.
+        """
         if self.limit and len(self) == self.limit:
             self.set.remove(self[0])
             del self[0]
@@ -31,7 +37,19 @@ class RecentUsed(UserList):
         super().append(item)
 
     def pop(self, i=-1):
+        """
+        Returns the most recently accessed item without
+        removing it.
+        """
         return self[i]
 
     def __eq__(self, o):
+        """
+        Two RecentUsed objects are the same if they:
+            - Have the same data stored
+
+            AND
+
+            - Have the same limit
+        """
         return self.data == o.data and self.limit == o.limit
