@@ -32,3 +32,6 @@ class RecentUsed(UserList):
 
     def pop(self, i=-1):
         return self[i]
+
+    def __eq__(self, o):
+        return self.data == o.data and self.limit == o.limit
