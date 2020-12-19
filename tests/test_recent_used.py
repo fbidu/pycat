@@ -128,3 +128,26 @@ def test_can_clean_history(recent_used_populated):
     recent_used_populated.clear()
 
     assert len(recent_used_populated) == 0
+
+
+def test_equality():
+    """
+    Can we compare two histories?
+    """
+
+    history_a = RecentUsed(limit=3)
+    history_b = RecentUsed(limit=3)
+    history_c = RecentUsed(limit=4)
+
+    for h in (history_a, history_b, history_c):
+        h.append("file1")
+        h.append("file2")
+
+    assert history_a == history_b
+    assert history_b != history_c
+
+
+def test_json_serialization(recent_used_populated):
+    """
+    Can we save and restore an history from a json string?
+    """
