@@ -1,6 +1,7 @@
 # pylint:disable=missing-module-docstring, too-many-ancestors
 
 from collections import UserList
+from json import dumps
 
 
 class RecentUsed(UserList):
@@ -53,3 +54,12 @@ class RecentUsed(UserList):
             - Have the same limit
         """
         return self.data == o.data and self.limit == o.limit
+
+    def to_json(self):
+        """
+        Returns a JSON representation of the current object
+        """
+        data = self.__dict__
+        del data["set"]
+
+        return dumps(data)
