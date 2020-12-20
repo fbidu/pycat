@@ -151,3 +151,4 @@ def test_json_serialization(recent_used_populated):
     """
     Can we save and restore an history from a json string?
     """
+    serialized = recent_used_populated.to_json()
