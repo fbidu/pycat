@@ -1,7 +1,7 @@
 # pylint:disable=missing-module-docstring, too-many-ancestors
 
 from collections import UserList
-from json import dumps
+from json import dumps, loads
 
 
 class RecentUsed(UserList):
@@ -17,7 +17,15 @@ class RecentUsed(UserList):
         self.set = set(data)
         self.limit = limit
 
-        super().__init__()
+        super().__init__(initlist=data)
+
+    @classmethod
+    def from_json(cls, data):
+        """
+        Given a valid JSON string in `data` creates a new instance
+        """
+        data_ = loads(data)
+        return cls(**data_)
 
     def append(self, item):
         """

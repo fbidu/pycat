@@ -152,7 +152,7 @@ def test_json_serialization(recent_used_populated):
     Can we save and restore an history from a json string?
     """
     serialized = recent_used_populated.to_json()
-    assert serialized
+    assert serialized == '{"data": ["file1", "file2", "file3"], "limit": null}'
 
     history = RecentUsed.from_json(serialized)
     assert history == recent_used_populated
