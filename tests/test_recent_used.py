@@ -66,6 +66,9 @@ def test_pop_returns_latest_file(recent_used_populated):
     Can we `pop` the latest file?
     """
     assert recent_used_populated.pop() == "file3"
+    assert recent_used_populated.pop(0) == "file3"
+    assert recent_used_populated.pop(1) == "file2"
+    assert recent_used_populated.pop(2) == "file1"
 
 
 def test_duplicated_file_is_unique(recent_used_populated):
@@ -156,3 +159,13 @@ def test_json_serialization(recent_used_populated):
 
     history = RecentUsed.from_json(serialized)
     assert history == recent_used_populated
+
+
+def test_limit_is_respected_extending():
+    """
+    When extending the history, is the limit respected?
+    """
+    bounded = RecentUsed(limit=2)
+    bounded.extend(["file1", "file2", "file3"])
+
+    assert len(bounded) == 2

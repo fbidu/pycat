@@ -45,12 +45,37 @@ class RecentUsed(UserList):
 
         super().append(item)
 
-    def pop(self, i=-1):
+    def extend(self, other) -> None:
+        for item in other:
+            self.append(item)
+
+    def pop(self, i=0):
         """
         Returns the most recently accessed item without
         removing it.
+
+        Arguments:
+             i {integer} - The index to be popped, relative to the most recent
+                           access. That is:
+
+                            * `i=0` returns the most recent entry.
+                            * `i=1` returns the second most recent entry.
+                            * `i=2` returns the third most recent entry and so on
+
+        >>> r = RecentUsed()
+        >>> r.append("file1")
+        >>> r.append("file2")
+
+        >>> r.pop()
+        'file2'
+
+        >>> r.pop(0)
+        'file2'
+
+        >>> r.pop(1)
+        'file1'
         """
-        return self[i]
+        return self[-1 - i]
 
     def __eq__(self, o):
         """
@@ -67,7 +92,8 @@ class RecentUsed(UserList):
         """
         Returns a JSON representation of the current object
         """
-        data = self.__dict__
-        del data["set"]
+        data = self.__dict__.copy()
+        if "set" in data:
+            del data["set"]
 
         return dumps(data)
