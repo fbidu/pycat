@@ -28,7 +28,7 @@ class Cat:
         for filename in args:
             if filename.startswith("$"):
                 index = int(filename[1:])
-                filenames.append(self.history.pop(-1 - index))
+                filenames.append(self.history.pop(index))
             else:
                 filenames.append(filename)
 

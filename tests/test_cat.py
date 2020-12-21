@@ -61,7 +61,8 @@ def test_cat_keeps_multiple(capsys):
     >> cat('$1', '$0')
     <file 1 content> <file 2 content>
     """
-    cat("tests/hello.txt", "tests/world.txt", dry_run=True)
+    cat("tests/hello.txt", dry_run=True)
+    cat("tests/world.txt", dry_run=True)
     cat("$1", "$0")
     captured = capsys.readouterr()
     assert captured.out == "hello, world!"
