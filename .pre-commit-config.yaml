@@ -35,7 +35,7 @@ repos:
         entry: poetry run pylint
         language: system
         files: \.py$
-        stages: [commit]
+        stages: [push]
 
       - id: system
         name: PyTest
