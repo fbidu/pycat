@@ -1,0 +1,23 @@
+# Workflow for running things with poetry - without docker
+name: Poetry
+on: push
+
+jobs:
+  Poetry:
+    name: poetry
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+      - uses: Gr1N/setup-poetry@v2
+
+      - name: Install
+        run: poetry install
+      - name: Pytest
+        run: |
+          poetry run pytest -v \
+          --cov=pycat \
+          --cov-report term-missing:skip-covered \
+          --doctest-modules
