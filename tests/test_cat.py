@@ -50,3 +50,18 @@ def test_cat_keeps_history(capsys):
     cat("$0")
     captured = capsys.readouterr()
     assert captured.out == "hello"
+
+
+def test_cat_keeps_multiple(capsys):
+    """
+
+    >> cat('file1', 'file2')
+    <file 1 content> <file 2 content>
+
+    >> cat('$1', '$0')
+    <file 1 content> <file 2 content>
+    """
+    cat("tests/hello.txt", "tests/world.txt", dry_run=True)
+    cat("$1", "$0")
+    captured = capsys.readouterr()
+    assert captured.out == "hello, world!"
