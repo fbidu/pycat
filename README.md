@@ -19,3 +19,11 @@ file-history feature and two 'cating' strategies.
 
 History is kept at `.pycat_history.json` inside the
 user's folder. It is limited to 10 entries.
+
+You can open the most recent file with `pycat #0`. In some
+shells such as `zsh` you need to escape with single quotes,
+`pycat '#0'`.
+
+Accessing the rest of the history is made relatively to the most recently
+opened file. `#0` being the most recent, `#1` the second most recent
+and so on.
