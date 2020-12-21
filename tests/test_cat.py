@@ -66,3 +66,15 @@ def test_cat_keeps_multiple(capsys):
     cat("$1", "$0")
     captured = capsys.readouterr()
     assert captured.out == "hello, world!"
+
+
+def test_cat_keeps_history_between_runs(capsys):
+    """
+    Can `cat` keep history in between executions?
+    """
+    cat_1 = Cat()
+    cat_1("tests/hello.txt", dry_run=True)
+    cat_2 = Cat()
+    cat_2("$0")
+    captured = capsys.readouterr()
+    assert captured.out == "hello"
