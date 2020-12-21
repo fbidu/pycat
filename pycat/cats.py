@@ -1,6 +1,7 @@
 """
 (re) implementations of UNIX's `cat`
 """
+from .recent_used import RecentUsed
 
 
 class Cat:
@@ -19,8 +20,20 @@ class Cat:
         except AttributeError as e:
             raise Exception(f"Invalid {strategy=}") from e
 
+        self.history = RecentUsed()
+
     def __call__(self, *args):
-        return self.strategy(*args)
+        filenames = []
+
+        for filename in args:
+            if filename.startswith("$"):
+                index = int(filename[1:])
+                filenames.append(self.history.pop(-1 - index))
+            else:
+                filenames.append(filename)
+
+        self.history.extend(filenames)
+        return self.strategy(*filenames)
 
     @staticmethod
     def simple(*filenames):

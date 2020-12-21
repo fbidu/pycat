@@ -21,17 +21,27 @@ def test_cat_sys_write(capsys):
     assert captured.out == "hello"
 
 
+def test_cat_accepts_dry_run(capsys):
+    """
+    Sometimes we don't want to
+    actually print anything
+    """
+    cat("tests/hello.txt", dryrun=True)
+    captured = capsys.readouterr()
+    assert captured.out == ""
+
+
 def test_cat_keeps_history(capsys):
     """
     We want to be able to open a previously opened
     file by its index:
 
-    >>> cat('file1')
+    >> cat('file1')
     <file 1 content>
-    >>> cat('file2')
+    >> cat('file2')
     <file 2 content>
 
-    >>> cat('$0')
+    >> cat('$0')
     <file 2 content>
     >> cat('$1')
     <file 1 content
@@ -39,4 +49,4 @@ def test_cat_keeps_history(capsys):
     cat("tests/hello.txt")
     cat("$0")
     captured = capsys.readouterr()
-    assert captured.out == "hello, world!"
+    assert captured.out == "hello"
