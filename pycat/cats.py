@@ -1,6 +1,9 @@
 """
 (re) implementations of UNIX's `cat`
 """
+from json.decoder import JSONDecodeError
+from pathlib import Path
+
 from .recent_used import RecentUsed
 
 
@@ -14,13 +17,23 @@ class Cat:
     >>> cat("filename")
     """
 
-    def __init__(self, strategy="simple"):
+    def __init__(self, strategy="simple", history_limit=10):
         try:
             self.strategy = getattr(self, strategy)
         except AttributeError as e:
             raise Exception(f"Invalid {strategy=}") from e
 
-        self.history = RecentUsed()
+        self.history_path = Path.home() / ".pycat_history.json"
+
+        if self.history_path.is_file():
+            try:
+                with open(self.history_path, "r") as history_data:
+                    self.history = RecentUsed.from_json(history_data.read())
+            except JSONDecodeError:
+                self.history_path.unlink()
+                self.history = RecentUsed(limit=history_limit)
+        else:
+            self.history = RecentUsed(limit=history_limit)
 
     def __call__(self, *args, **kwargs):
         filenames = []
@@ -33,6 +46,9 @@ class Cat:
                 filenames.append(filename)
 
         self.history.extend(filenames)
+
+        with open(self.history_path, "w") as history_data:
+            history_data.write(self.history.to_json())
 
         if kwargs.get("dry_run"):
             return None

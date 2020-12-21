@@ -89,6 +89,7 @@ class RecentUsed(UserList):
         Returns a JSON representation of the current object
         """
         data = self.__dict__
-        del data["set"]
+        if "set" in data:
+            del data["set"]
 
         return dumps(data)
