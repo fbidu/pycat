@@ -45,6 +45,10 @@ class RecentUsed(UserList):
 
         super().append(item)
 
+    def extend(self, other) -> None:
+        for item in other:
+            self.append(item)
+
     def pop(self, i=0):
         """
         Returns the most recently accessed item without
@@ -88,7 +92,7 @@ class RecentUsed(UserList):
         """
         Returns a JSON representation of the current object
         """
-        data = self.__dict__
+        data = self.__dict__.copy()
         if "set" in data:
             del data["set"]
 
