@@ -159,3 +159,13 @@ def test_json_serialization(recent_used_populated):
 
     history = RecentUsed.from_json(serialized)
     assert history == recent_used_populated
+
+
+def test_limit_is_respected_extending():
+    """
+    When extending the history, is the limit respected?
+    """
+    bounded = RecentUsed(limit=2)
+    bounded.extend(["file1", "file2", "file3"])
+
+    assert len(bounded) == 2
