@@ -22,7 +22,7 @@ class Cat:
 
         self.history = RecentUsed()
 
-    def __call__(self, *args):
+    def __call__(self, *args, **kwargs):
         filenames = []
 
         for filename in args:
@@ -33,6 +33,10 @@ class Cat:
                 filenames.append(filename)
 
         self.history.extend(filenames)
+
+        if kwargs.get("dry_run"):
+            return None
+
         return self.strategy(*filenames)
 
     @staticmethod

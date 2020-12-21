@@ -26,7 +26,7 @@ def test_cat_accepts_dry_run(capsys):
     Sometimes we don't want to
     actually print anything
     """
-    cat("tests/hello.txt", dryrun=True)
+    cat("tests/hello.txt", dry_run=True)
     captured = capsys.readouterr()
     assert captured.out == ""
 
