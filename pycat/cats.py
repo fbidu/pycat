@@ -48,7 +48,7 @@ class Cat:
 
     def _parse_filenames(self, _filenames):
         """Parses a list of filenames. If any of them is in the format
-        of `$x`, the filename is swapped with the x-th most recent
+        of `#x`, the filename is swapped with the x-th most recent
         accessed item in history. If history is disabled and any
         filename contains this format, an error will be raised.
 
@@ -56,7 +56,7 @@ class Cat:
             _filenames (list): List of filenames to be parsed
 
         Raises:
-            Exception: When any filename starts with $ and `keep_history`
+            Exception: When any filename starts with # and `keep_history`
                 is false, an exception is raised
 
         Returns:
@@ -64,11 +64,11 @@ class Cat:
         """
         filenames = []
 
-        if any(f.startswith("$") for f in _filenames) and not self.keep_history:
+        if any(f.startswith("#") for f in _filenames) and not self.keep_history:
             raise Exception("History is disabled")
 
         for filename in _filenames:
-            if filename.startswith("$"):
+            if filename.startswith("#"):
                 index = int(filename[1:])
                 filenames.append(self.history.pop(index))
             else:
