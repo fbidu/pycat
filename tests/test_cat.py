@@ -86,8 +86,8 @@ def test_cat_history_may_be_disabled():
     Check if we can disable PyCat's history
     """
 
-    no_history_cat = Cat(history=False)
+    no_history_cat = Cat(keep_history=False)
     no_history_cat("tests/hello.txt", dry_run=True)
 
-    with raises(IndexError):
+    with raises(Exception):
         no_history_cat("$0")

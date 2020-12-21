@@ -17,38 +17,44 @@ class Cat:
     >>> cat("filename")
     """
 
-    def __init__(self, strategy="simple", history_limit=10):
+    def __init__(self, strategy="simple", history_limit=10, keep_history=True):
         try:
             self.strategy = getattr(self, strategy)
         except AttributeError as e:
             raise Exception(f"Invalid {strategy=}") from e
+        self.keep_history = keep_history
 
-        self.history_path = Path.home() / ".pycat_history.json"
+        if self.keep_history:
+            self.history_path = Path.home() / ".pycat_history.json"
 
-        if self.history_path.is_file():
-            try:
-                with open(self.history_path, "r") as history_data:
-                    self.history = RecentUsed.from_json(history_data.read())
-            except JSONDecodeError:
-                self.history_path.unlink()
+            if self.history_path.is_file():
+                try:
+                    with open(self.history_path, "r") as history_data:
+                        self.history = RecentUsed.from_json(history_data.read())
+                except JSONDecodeError:
+                    self.history_path.unlink()
+                    self.history = RecentUsed(limit=history_limit)
+            else:
                 self.history = RecentUsed(limit=history_limit)
-        else:
-            self.history = RecentUsed(limit=history_limit)
 
     def __call__(self, *args, **kwargs):
         filenames = []
 
         for filename in args:
             if filename.startswith("$"):
+                if not self.keep_history:
+                    raise Exception("History is disabled")
                 index = int(filename[1:])
-                filenames.append(self.history.pop(index))
+                if self.keep_history:
+                    filenames.append(self.history.pop(index))
             else:
                 filenames.append(filename)
 
-        self.history.extend(filenames)
+        if self.keep_history:
+            self.history.extend(filenames)
 
-        with open(self.history_path, "w") as history_data:
-            history_data.write(self.history.to_json())
+            with open(self.history_path, "w") as history_data:
+                history_data.write(self.history.to_json())
 
         if kwargs.get("dry_run"):
             return None
