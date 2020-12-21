@@ -1,3 +1,4 @@
+from pytest import raises
 from pycat import cat, Cat
 
 
@@ -78,3 +79,15 @@ def test_cat_keeps_history_between_runs(capsys):
     cat_2("$0")
     captured = capsys.readouterr()
     assert captured.out == "hello"
+
+
+def test_cat_history_may_be_disabled():
+    """
+    Check if we can disable PyCat's history
+    """
+
+    no_history_cat = Cat(history=False)
+    no_history_cat("tests/hello.txt", dry_run=True)
+
+    with raises(IndexError):
+        no_history_cat("$0")
