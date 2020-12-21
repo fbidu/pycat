@@ -45,12 +45,33 @@ class RecentUsed(UserList):
 
         super().append(item)
 
-    def pop(self, i=-1):
+    def pop(self, i=0):
         """
         Returns the most recently accessed item without
         removing it.
+
+        Arguments:
+             i {integer} - The index to be popped, relative to the most recent
+                           access. That is:
+
+                            * `i=0` returns the most recent entry.
+                            * `i=1` returns the second most recent entry.
+                            * `i=2` returns the third most recent entry and so on
+
+        >>> r = RecentUsed()
+        >>> r.append("file1")
+        >>> r.append("file2")
+
+        >>> r.pop()
+        'file2'
+
+        >>> r.pop(0)
+        'file2'
+
+        >>> r.pop(1)
+        'file1'
         """
-        return self[i]
+        return self[-1 - i]
 
     def __eq__(self, o):
         """

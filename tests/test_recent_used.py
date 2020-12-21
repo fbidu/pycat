@@ -67,6 +67,11 @@ def test_pop_returns_latest_file(recent_used_populated):
     """
     assert recent_used_populated.pop() == "file3"
 
+    # TODO: Implementar esse teste para refatorar cats.py:31
+    assert recent_used_populated.pop(0) == "file3"
+    assert recent_used_populated.pop(1) == "file2"
+    assert recent_used_populated.pop(2) == "file1"
+
 
 def test_duplicated_file_is_unique(recent_used_populated):
     """
