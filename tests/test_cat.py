@@ -46,7 +46,7 @@ def test_cat_keeps_history(capsys):
     >> cat('$1')
     <file 1 content
     """
-    cat("tests/hello.txt")
+    cat("tests/hello.txt", dry_run=True)
     cat("$0")
     captured = capsys.readouterr()
     assert captured.out == "hello"
